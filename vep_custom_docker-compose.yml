@@ -1,0 +1,16 @@
+#docker-compose -f <Docker_compose_file_path> build
+#docker-compose -f <Docker_compose_file> -p vep_test up -d
+version: '3.7'
+services:
+  vep:
+    image: wingsorg/vepcustom:release_105.0
+    build:
+      context: /home/nsattanathan/Annotations/vepcustomv1.0
+      dockerfile: Dockerfile
+    volumes:
+      - $HOME/Annotations/vep_data:/opt/vep/.vep
+    environment:
+      - BIND_LOC=/opt/vep/.vep
+    command:
+      #tail -f /dev/null
+      ./install.sh -g "GRCh37,GRCh38"
