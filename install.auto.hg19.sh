@@ -9,12 +9,13 @@ cd $BASEDIR
 
 
 #Data sources related to VEP Plugins
-CLINVAR_SRC="ftp://ftp.ncbi.nlm.nih.gov/pub/clinvar/vcf_GRCh37/clinvar.vcf.gz"
-CLINVAR_IDX="ftp://ftp.ncbi.nlm.nih.gov/pub/clinvar/vcf_GRCh37/clinvar.vcf.gz.tbi"
-EXAC_SRC="ftp://ftp.ensembl.org/pub/data_files/homo_sapiens/GRCh37/variation_genotype/ExAC.0.3.GRCh37.vcf.gz"
-EXAC_IDX="ftp://ftp.ensembl.org/pub/data_files/homo_sapiens/GRCh37/variation_genotype/ExAC.0.3.GRCh37.vcf.gz.tbi"
-GNOMAD_SRC="ftp://ftp.ensembl.org/pub/data_files/homo_sapiens/GRCh37/variation_genotype/gnomad.genomes.r2.0.1.sites.noVEP.vcf.gz"
-GNOMAD_IDX="ftp://ftp.ensembl.org/pub/data_files/homo_sapiens/GRCh37/variation_genotype/gnomad.genomes.r2.0.1.sites.noVEP.vcf.gz.tbi"
+# updated ftp: urls to https:
+CLINVAR_SRC="https://ftp.ncbi.nlm.nih.gov/pub/clinvar/vcf_GRCh37/clinvar.vcf.gz"
+CLINVAR_IDX="https://ftp.ncbi.nlm.nih.gov/pub/clinvar/vcf_GRCh37/clinvar.vcf.gz.tbi"
+EXAC_SRC="https://ftp.ensembl.org/pub/data_files/homo_sapiens/GRCh37/variation_genotype/ExAC.0.3.GRCh37.vcf.gz"
+EXAC_IDX="https://ftp.ensembl.org/pub/data_files/homo_sapiens/GRCh37/variation_genotype/ExAC.0.3.GRCh37.vcf.gz.tbi"
+GNOMAD_SRC="https://ftp.ensembl.org/pub/data_files/homo_sapiens/GRCh37/variation_genotype/gnomad.genomes.r2.0.1.sites.noVEP.vcf.gz"
+GNOMAD_IDX="https://ftp.ensembl.org/pub/data_files/homo_sapiens/GRCh37/variation_genotype/gnomad.genomes.r2.0.1.sites.noVEP.vcf.gz.tbi"
 
 function download()
 {
@@ -45,6 +46,9 @@ then
     echo "Initiate download data sources for gnomAD"
     download ${GNOMAD_SRC} ${GNOMAD_IDX}
 
-    cd $BASEDIR
+    echo "Move RNA Central BED file to plugin data source"
+    mv $BASEDIR/homo_sapiens.GRCh37_proc.bed.gz .
+    tabix -p bed homo_sapiens.GRCh37_proc.bed.gz
 
+    cd $BASEDIR
 fi

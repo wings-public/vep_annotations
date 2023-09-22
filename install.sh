@@ -53,8 +53,9 @@ fi
 if [[ $BUILD == "GRCh37,GRCh38" ]];then
     echo "$BUILD"
     echo "Both assembly option activated"
-    perl INSTALL.pl -a cfp -s homo_sapiens_refseq -y GRCh37 -g all
-    perl INSTALL.pl -a cfp -s homo_sapiens_refseq -y GRCh38 -g all
+    # -n option for no vep updates. install the requested version
+    perl INSTALL.pl -a cfp -s homo_sapiens_refseq -y GRCh37 -g all -n 
+    perl INSTALL.pl -a cfp -s homo_sapiens_refseq -y GRCh38 -g all -n 
     echo "Installing data sources for Plugins for GRCh37"
     echo "$SCRIPT1"
     bash "$SCRIPT1"
@@ -65,11 +66,20 @@ fi
 
 
 # Install any other plug-in data sources
-LOF_SRC="https://github.com/Ensembl/VEP_plugins/blob/release/100/LoFtool_scores.txt"
-plugin_src1="$BIND_LOC/Plugins"
-
+LOF_SRC="https://github.com/Ensembl/VEP_plugins/blob/release/109/LoFtool_scores.txt"
+#plugin_src1="$BIND_LOC/Plugins"
+plugin_src1="$BIND_LOC/plugin_data_source"
 cd $plugin_src1
+
 wget $LOF_SRC
+
+#plugin_src2="$BIND_LOC/plugin_data_source"
+#cd $plugin_src2
+
+MAXENT_SRC="http://hollywood.mit.edu/burgelab/maxent/download/fordownload.tar.gz"
+wget  $MAXENT_SRC
+
+tar -xf fordownload.tar.gz
 cd $BASEDIR
 
 echo "VEP Cache,Plugins and related data sources Installation Completed"

@@ -3,12 +3,13 @@
 version: '3.7'
 services:
   vep:
-    image: wingsorg/vepcustom:release_105.0
+    image: wingsorg/vepcustom:release_105.1
     build:
       context: /home/nsattanathan/Annotations/vepcustomv1.0
       dockerfile: Dockerfile
     volumes:
       - $HOME/Annotations/vep_data:/opt/vep/.vep
+      - $HOME/Annotations/vep_data:/datafiles
     environment:
       - BIND_LOC=/opt/vep/.vep
     command:
